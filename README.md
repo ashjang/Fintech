@@ -21,8 +21,12 @@
     - 로그인 필수
     - 계좌는 1인당 은행별 최대 3개(적금2개, 예금1개) 생성 가능
     - 계좌 비밀번호(숫자 4자리) 생성
-    - 계좌번호(13자리), 계좌 생성일, 고객, 잔액 0원 초기화 설정
-    
+    - 계좌번호(14자리로 통일), 계좌 생성일, 고객, 잔액 0원 초기화 설정
+    - 계좌번호
+      - 은행별 계좌번호 앞 3자리(우리은행:001, 신한은행:002, 하나은행:003, 농협은행:004, 국민은행:005)
+      - 계좌유형에 따른 계좌번호 중간 2자리(01:예금, 02:적금)
+      - 나머지 자리 랜덤값
+      
 2. 삭제
     - 로그인 필수
     - 사용자가 가진 계좌들 중 계좌번호, 계좌 비밀번호, 생년월일 입력으로 삭제.
@@ -60,10 +64,14 @@
 
 ## Tech Stack
 <div align=center> 
-  <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
-  <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
-  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
-  <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
+   <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
+   <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+   <img src="https://img.shields.io/badge/jsonwebtokens-000000?style=for-the-badge&logo=git&logoColor=white">
+   <img src="https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=git&logoColor=white">
+   <img src="https://img.shields.io/badge/mailgun-F06B66?style=for-the-badge&logo=git&logoColor=white">
+   <img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=git&logoColor=white">
+   <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
 </div>
 
 ###### 참고
