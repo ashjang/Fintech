@@ -1,0 +1,11 @@
+### 회원가입
+POST http://localhost:8080/signup/customer
+Content-Type: application/json
+
+{
+  "nickname": "grace",
+  "password": "grace",
+  "phone": "01011111111",
+  "name": "grace",
+  "id_number": "990929-1111111"
+}
