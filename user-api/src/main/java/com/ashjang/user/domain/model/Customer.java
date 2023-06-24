@@ -37,7 +37,7 @@ public class Customer extends BaseEntity {
                 .password(signUpForm.getPassword())
                 .phone(signUpForm.getPhone())
                 .name(signUpForm.getName())
-                .idNumber(signUpForm.getId_number())
+                .idNumber(signUpForm.getIdNumber())
                 .build();
     }
 }

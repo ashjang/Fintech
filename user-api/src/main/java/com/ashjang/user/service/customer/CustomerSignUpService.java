@@ -20,7 +20,7 @@ public class CustomerSignUpService {
             throw new CustomException(ErrorCode.ALREADY_EXISTS_NICKNAME);
         }
         // 주민등록번호 중복일치 여부
-        if (isIdNumberExists(signUpForm.getId_number())) {
+        if (isIdNumberExists(signUpForm.getIdNumber())) {
             throw new CustomException(ErrorCode.ALREADY_EXISTS_REGISTER);
         }
 

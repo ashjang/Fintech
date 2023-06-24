@@ -14,5 +14,5 @@ public class SignUpForm {
     private String password;
     private String phone;
     private String name;
-    private String id_number;
+    private String idNumber;
 }
