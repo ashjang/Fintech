@@ -14,8 +14,7 @@ public class CustomExceptionController {
                 .status(exception.getStatus())
                 .body(
                         CustomException.CustomExceptionResponse.builder()
-                                .status(exception.getStatus())
-                                .code(exception.getErrorCode().name())
+                                .codes(exception.getErrorCode().name())
                                 .message(exception.getMessage())
                                 .build()
                 );

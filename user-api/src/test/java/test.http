@@ -7,5 +7,5 @@ Content-Type: application/json
   "password": "grace",
   "phone": "01011111111",
   "name": "grace",
-  "id_number": "990929-1111111"
+  "idNumber": "990929-1111111"
 }

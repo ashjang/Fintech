@@ -1,6 +1,7 @@
 package com.ashjang.user.service.customer;
 
 import com.ashjang.user.domain.SignUpForm;
+import com.ashjang.user.domain.dto.CustomerDto;
 import com.ashjang.user.domain.model.Customer;
 import com.ashjang.user.domain.repository.CustomerRepository;
 import com.ashjang.user.exception.CustomException;
@@ -14,7 +15,7 @@ public class CustomerSignUpService {
     private final CustomerRepository customerRepository;
 
     // 회원가입
-    public String signUp(SignUpForm signUpForm) {
+    public CustomerDto signUp(SignUpForm signUpForm) {
         // 닉네임 중복일치 여부
         if (isNickNameExists(signUpForm.getNickname())) {
             throw new CustomException(ErrorCode.ALREADY_EXISTS_NICKNAME);
@@ -24,8 +25,8 @@ public class CustomerSignUpService {
             throw new CustomException(ErrorCode.ALREADY_EXISTS_REGISTER);
         }
 
-        customerRepository.save(Customer.from(signUpForm));
-        return "customer - 회원가입 완료";
+        Customer customer = customerRepository.save(Customer.from(signUpForm));
+        return CustomerDto.from(customer);
     }
 
     // 닉네임 존재여부 확인
