@@ -9,3 +9,12 @@ Content-Type: application/json
   "name": "grace",
   "idNumber": "990929-1111111"
 }
+
+### 로그인
+POST http://localhost:8080/signin/customer
+Content-Type: application/json
+
+{
+  "nickname": "grace",
+  "password": "grace"
+}
