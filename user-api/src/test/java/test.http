@@ -18,3 +18,8 @@ Content-Type: application/json
   "nickname": "grace",
   "password": "grace"
 }
+
+### 고객 상세 정보
+GET http://localhost:8080/customer/getInfo
+Content-Type: application/json
+X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODc5MzcwNDIsImV4cCI6MTY4NzkzODI0Mn0.VxPFiP2SbIS3KiM5ocbhmsvgG2dvwxe9VYB5hVW7Tk8
