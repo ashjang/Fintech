@@ -18,13 +18,19 @@ public class CustomerService {
     private final JwtAuthenticationProvider jwtAuthenticationProvider;
 
     // 회원정보 조회
-    public Optional<Customer> customerDetail(String token) {
+    public Customer customerDetail(String token, String password) {
         if (!jwtAuthenticationProvider.isValidToken(token)) {
             throw new CustomException(ErrorCode.NOT_VALID_TOKEN);
         }
 
         UserVo userVo = jwtAuthenticationProvider.getUserVo(token);
-        System.out.println(userVo.getNickname());
-        return customerRepository.findByNickname(userVo.getNickname());
+        Customer customer = customerRepository.findByNickname(userVo.getNickname())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        if (!customer.getPassword().equals(password)) {
+            throw new CustomException(ErrorCode.PASSWORD_CHECK_FAIL);
+        }
+
+        return customer;
     }
 }

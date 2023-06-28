@@ -20,6 +20,7 @@ Content-Type: application/json
 }
 
 ### 고객 상세 정보
-GET http://localhost:8080/customer/getInfo
+POST http://localhost:8080/customer/getInfo?password=grace
 Content-Type: application/json
-X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODc5MzcwNDIsImV4cCI6MTY4NzkzODI0Mn0.VxPFiP2SbIS3KiM5ocbhmsvgG2dvwxe9VYB5hVW7Tk8
+X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOOUxLU3FSZ1FwaCtPeDdtOGoyaHVRPT0iLCJqdGkiOiIydWFIbjIyNXpOakZnb3VxTFcydklBPT0iLCJpYXQiOjE2ODc5NDExNjMsImV4cCI6MTY4Nzk0MjM2M30.q-hzfLHqjVX_1EzFfTooAvMo0WKqM9uXwRWDtYm7C70
+
