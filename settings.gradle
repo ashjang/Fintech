@@ -2,4 +2,5 @@ rootProject.name = 'Fintech'
 include 'user-api'
 include 'domain'
 include 'domain-api'
+include 'account-api'
 
