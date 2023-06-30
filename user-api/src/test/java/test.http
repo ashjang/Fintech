@@ -22,5 +22,16 @@ Content-Type: application/json
 ### 고객 상세 정보
 POST http://localhost:8080/customer/getInfo?password=grace
 Content-Type: application/json
-X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOOUxLU3FSZ1FwaCtPeDdtOGoyaHVRPT0iLCJqdGkiOiIydWFIbjIyNXpOakZnb3VxTFcydklBPT0iLCJpYXQiOjE2ODc5NDExNjMsImV4cCI6MTY4Nzk0MjM2M30.q-hzfLHqjVX_1EzFfTooAvMo0WKqM9uXwRWDtYm7C70
+X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOOUxLU3FSZ1FwaCtPeDdtOGoyaHVRPT0iLCJqdGkiOiJhc1psbEEzaUFiaFIrbkMvYU53L0FRPT0iLCJpYXQiOjE2ODgxMDQzOTMsImV4cCI6MTY4ODEwNTU5M30.aNILkTeAm5XHfDAfbG3oAf1PhVMnrU7vA5pEZHyqLSY
 
+### 고객 상세 정보 변경
+PUT http://localhost:8080/customer/changeInfo
+Content-Type: application/json
+X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOOUxLU3FSZ1FwaCtPeDdtOGoyaHVRPT0iLCJqdGkiOiJhc1psbEEzaUFiaFIrbkMvYU53L0FRPT0iLCJpYXQiOjE2ODgxMDQzOTMsImV4cCI6MTY4ODEwNTU5M30.aNILkTeAm5XHfDAfbG3oAf1PhVMnrU7vA5pEZHyqLSY
+
+{
+  "password": "grace",
+  "againPassword": "grace12",
+  "phone": "01011111111",
+  "name": "grace park"
+}
