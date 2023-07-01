@@ -1,6 +1,7 @@
 package com.ashjang.account.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -18,7 +19,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.ashjang"))
+                .apis(RequestHandlerSelectors.basePackage("com.ashjang.account"))
                 .paths(PathSelectors.any())
                 .build();
     }

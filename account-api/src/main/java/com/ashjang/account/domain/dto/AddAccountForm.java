@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class AddAccountForm {
     @NotBlank
-    private AccountType type;
+    private String type;
     @NotBlank
     @Min(value = 1000)
     @Max(value = 9999)

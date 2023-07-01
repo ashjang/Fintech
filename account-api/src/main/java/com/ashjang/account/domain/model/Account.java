@@ -6,6 +6,8 @@ import com.ashjang.account.domain.dto.BankType;
 import com.ashjang.user.domain.model.Customer;
 import lombok.*;
 import org.hibernate.envers.AuditOverride;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import javax.persistence.*;
 
@@ -16,6 +18,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @AuditOverride(forClass = BaseEntity.class)
+@Audited
 public class Account extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,19 +31,20 @@ public class Account extends BaseEntity{
     private Long balance;
     private AccountType type;
 
-    @ManyToOne
-    @JoinColumn(name = "userId")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     private Customer userId;
 
     private BankType bank;
 
-    public static Account from(Customer customer, AddAccountForm form, String accountNumber) {
+    public static Account from(Customer userId, AddAccountForm form, String accountNumber) {
         return Account.builder()
                 .accountNumber(accountNumber)
                 .password(form.getPassword())
                 .balance(0L)
-                .type(form.getType())
-                .userId(customer)
+                .type(AccountType.valueOfNumber(form.getType()))
+                .userId(userId)
                 .bank(BankType.valueOfName(form.getBankName()))
                 .build();
     }
