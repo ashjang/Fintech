@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Builder
@@ -15,8 +16,8 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class AddAccountForm {
     @NotBlank
-    private String type;
-    @NotBlank
+    private AccountType type;
+    @NotNull
     @Min(value = 1000)
     @Max(value = 9999)
     private Integer password;

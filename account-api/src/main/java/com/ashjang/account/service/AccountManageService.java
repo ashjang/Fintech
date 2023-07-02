@@ -12,7 +12,6 @@ import com.ashjang.domain.config.JwtAuthenticationProvider;
 import com.ashjang.user.domain.model.Customer;
 import com.ashjang.user.domain.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -37,13 +36,9 @@ public class AccountManageService {
         if (BankType.valueOfName(form.getBankName()) == null) {
             throw new CustomException(ErrorCode.NOT_FOUND_BANK);
         }
-        // 계좌 타입 존재여부 확인
-        if (AccountType.valueOfNumber(form.getType()) == null) {
-            throw new CustomException(ErrorCode.NOT_FOUND_ACCOUNT_TYPE);
-        }
 
         // 계좌번호 만들기
-        String accountNumber = setAccountNumber(customer.getId(), BankType.valueOfName(form.getBankName()), AccountType.valueOfNumber(form.getBankName()));
+        String accountNumber = setAccountNumber(customer.getId(), BankType.valueOfName(form.getBankName()), form.getType());
 
         return Account.from(customer, form, accountNumber);
     }

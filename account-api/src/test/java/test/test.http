@@ -1,0 +1,10 @@
+### 계좌생성
+POST http://localhost:8081/account/create
+Content-Type: application/json
+X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOOUxLU3FSZ1FwaCtPeDdtOGoyaHVRPT0iLCJqdGkiOiJwTWlyM083eDRmbWpFd0h2VW9TODd3PT0iLCJpYXQiOjE2ODgyMTkzNTksImV4cCI6MTY4ODIyMDU1OX0.CMrg45QwlAfV9ylk46O2zWl1iR4XBZy0A4G6ob9_Iy8
+
+{
+  "bankName": "은행",
+  "password": 3510,
+  "type": "SAVINGS"
+}

@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaAuditing
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackages = {"com.ashjang.user.domain.repository", "com.ashjang.account"})
 @EntityScan(basePackages = {"com.ashjang.account", "com.ashjang.user.domain.model"})
 @ServletComponentScan
 public class AccountApplication {

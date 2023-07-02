@@ -10,13 +10,13 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class CustomException extends RuntimeException{
     private final ErrorCode errorCode;
-    private final int status;
+    private final HttpStatus status;
     private static final ObjectMapper mapper = new ObjectMapper();
 
     public CustomException(ErrorCode errorCode) {
         super(errorCode.getDetail());
         this.errorCode = errorCode;
-        this.status = HttpStatus.BAD_REQUEST.value();
+        this.status = HttpStatus.BAD_REQUEST;
     }
 
     @AllArgsConstructor
