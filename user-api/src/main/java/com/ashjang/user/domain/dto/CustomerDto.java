@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class CustomerDto {
+    private Long id;
     private String nickname;
     private String password;
     private String phone;
@@ -17,6 +18,7 @@ public class CustomerDto {
 
     public static CustomerDto from(Customer customer) {
         return new CustomerDto(
+                customer.getId(),
                 customer.getNickname(),
                 customer.getPassword(),
                 customer.getPhone(),
