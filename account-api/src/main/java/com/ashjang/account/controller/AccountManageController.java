@@ -20,7 +20,7 @@ import javax.validation.Valid;
 public class AccountManageController {
     private final AccountManageService accountManageService;
 
-    @ApiOperation(value = "계좌 생성", response = AccountDto.class)
+    @ApiOperation(value = "계좌 생성", response = AccountDto.class, notes = "bankType(은행종류): WOORI, HANA, NONGHYUP, SHINHAN, KAKAO\ntype(계좌유형): SAVINGS, INSTALLMENT_SAVINGS")
     @PostMapping("/creation")
     public ResponseEntity<AccountDto> createAccount(@RequestHeader(value = "X-AUTH-TOKEN") String token,
                                                     @Valid @RequestBody AddAccountForm form, BindingResult bindingResult) {

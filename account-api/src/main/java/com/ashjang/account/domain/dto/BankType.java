@@ -19,11 +19,4 @@ public enum BankType {
 
     private final String number;
     private final String name;
-
-    private static final Map<String, BankType> BY_NAME =
-            Stream.of(values()).collect(Collectors.toMap(BankType::getName, x -> x));
-
-    public static BankType valueOfName(String name) {
-        return BY_NAME.get(name);
-    }
 }
