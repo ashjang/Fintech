@@ -10,10 +10,7 @@ import com.ashjang.account.exception.CustomException;
 import com.ashjang.account.exception.ErrorCode;
 import com.ashjang.domain.common.UserVo;
 import com.ashjang.domain.config.JwtAuthenticationProvider;
-import com.ashjang.user.domain.dto.CustomerDto;
-import com.ashjang.user.domain.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,13 +73,20 @@ public class AccountManageService {
         }
 
         UserVo userVo = jwtAuthenticationProvider.getUserVo(token);
-        Account account = accountRepository.findByAccountNumber(form.getAccountNumber())
-                .orElseThrow(() -> new CustomException(ErrorCode.CHECK_ACCOUNTNUMBER_AGAIN));
+        Account account = accountRepository.findByAccountNumberAndCustomerId(form.getAccountNumber(), userVo.getId())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ACCOUNT));
 
+        // 잔액 확인
+        if (account.getBalance() != 0) {
+            throw new CustomException(ErrorCode.CHECK_BALANCE);
+        }
+        // 계좌번호 & 비번 일치 확인
         if (account.getAccountNumber().equals(form.getAccountNumber())
             && account.getPassword().equals(form.getAccountPassword())) {
             accountRepository.delete(account);
             accountRepository.flush();
+        } else {
+            throw new CustomException(ErrorCode.CHECK_PASSWORD);
         }
 
         return account;

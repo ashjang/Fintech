@@ -14,8 +14,11 @@ public enum ErrorCode {
     VALIDATION_FAIL("폼 형식에 맞게 작성해주세요."),
 
     ALREADY_EXISTS_ACCOUNT("생성 가능한 계좌 개수가 초과되어 계좌 생성을 실패했습니다."),
-    CHECK_BIRTH_AGAIN("생년월일을 다시 확인해주세요."),
-    CHECK_ACCOUNTNUMBER_AGAIN("계좌번호를 다시 확인해주세요.")
+
+    NOT_FOUND_ACCOUNT("계좌번호를 다시 확인해주세요."),
+    NO_ACCESS_USER("해당 계좌에 접근권한이 없습니다"),
+    CHECK_BALANCE("잔액이 0원이 아닙니다."),
+    CHECK_PASSWORD("계좌 비밀번호가 일치하지 않습니다.")
     ;
 
     private final String detail;
