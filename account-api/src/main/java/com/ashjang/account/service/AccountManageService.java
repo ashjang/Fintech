@@ -3,13 +3,17 @@ package com.ashjang.account.service;
 import com.ashjang.account.domain.dto.AccountType;
 import com.ashjang.account.domain.dto.AddAccountForm;
 import com.ashjang.account.domain.dto.BankType;
+import com.ashjang.account.domain.dto.DeleteAccountForm;
 import com.ashjang.account.domain.model.Account;
 import com.ashjang.account.domain.repository.AccountRepository;
 import com.ashjang.account.exception.CustomException;
 import com.ashjang.account.exception.ErrorCode;
 import com.ashjang.domain.common.UserVo;
 import com.ashjang.domain.config.JwtAuthenticationProvider;
+import com.ashjang.user.domain.dto.CustomerDto;
+import com.ashjang.user.domain.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,4 +69,22 @@ public class AccountManageService {
         return head + body + tail;
     }
 
+    // 계좌 삭제
+    public Account deleteAccount(String token, DeleteAccountForm form) {
+        if (!jwtAuthenticationProvider.isValidToken(token)) {
+            throw new CustomException(ErrorCode.NOT_VALID_TOKEN);
+        }
+
+        UserVo userVo = jwtAuthenticationProvider.getUserVo(token);
+        Account account = accountRepository.findByAccountNumber(form.getAccountNumber())
+                .orElseThrow(() -> new CustomException(ErrorCode.CHECK_ACCOUNTNUMBER_AGAIN));
+
+        if (account.getAccountNumber().equals(form.getAccountNumber())
+            && account.getPassword().equals(form.getAccountPassword())) {
+            accountRepository.delete(account);
+            accountRepository.flush();
+        }
+
+        return account;
+    }
 }
