@@ -15,7 +15,7 @@ public class AccountDto {
     private Long balance;
     private AccountType type;
     private BankType bank;
-    private Long customer;
+    private Customer customer;
 
     public static AccountDto from(Account account) {
         return new AccountDto(
