@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeleteAccountForm {
+public class AccountForm {
     @NotBlank
     private String accountNumber;
     @NotBlank

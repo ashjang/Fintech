@@ -2,7 +2,7 @@ package com.ashjang.account.controller;
 
 import com.ashjang.account.domain.dto.AccountDto;
 import com.ashjang.account.domain.dto.AddAccountForm;
-import com.ashjang.account.domain.dto.DeleteAccountForm;
+import com.ashjang.account.domain.dto.AccountForm;
 import com.ashjang.account.domain.model.Account;
 import com.ashjang.account.exception.CustomException;
 import com.ashjang.account.exception.ErrorCode;
@@ -37,13 +37,26 @@ public class AccountManageController {
     @ApiOperation(value = "계좌 삭제", response = AccountDto.class)
     @DeleteMapping("/deletion")
     public ResponseEntity<AccountDto> deleteAccount(@RequestHeader(value = "X-AUTH-TOKEN") String token,
-                                                    @Valid @RequestBody DeleteAccountForm form, BindingResult bindingResult) {
+                                                    @Valid @RequestBody AccountForm form, BindingResult bindingResult) {
         // 폼 형식에 맞지 않음
         if (bindingResult.hasErrors()) {
             throw new CustomException(ErrorCode.VALIDATION_FAIL);
         }
 
         Account account = accountManageService.deleteAccount(token, form);
+        return ResponseEntity.ok(AccountDto.from(account));
+    }
+
+    @ApiOperation(value = "계좌 조회", response = AccountDto.class)
+    @PostMapping
+    public ResponseEntity<AccountDto> selectAccount(@RequestHeader(value = "X-AUTH-TOKEN") String token,
+                                                    @Valid @RequestBody AccountForm form, BindingResult bindingResult) {
+        // 폼 형식에 맞지 않음
+        if (bindingResult.hasErrors()) {
+            throw new CustomException(ErrorCode.VALIDATION_FAIL);
+        }
+
+        Account account = accountManageService.selectAccount(token, form);
         return ResponseEntity.ok(AccountDto.from(account));
     }
 }
