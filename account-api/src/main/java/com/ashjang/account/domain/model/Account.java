@@ -3,7 +3,6 @@ package com.ashjang.account.domain.model;
 import com.ashjang.account.domain.dto.AccountType;
 import com.ashjang.account.domain.dto.AddAccountForm;
 import com.ashjang.account.domain.dto.BankType;
-import com.ashjang.user.domain.model.Customer;
 import lombok.*;
 import org.hibernate.envers.AuditOverride;
 
@@ -24,24 +23,21 @@ public class Account extends BaseEntity{
     @Column(length = 15, unique = true)
     private String accountNumber;
 
-    private Integer password;
+    private String password;
     private Long balance;
     private AccountType type;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private Customer customer;
+    private Long customerId;
 
     private BankType bank;
 
-    public static Account from(Customer userId, AddAccountForm form, String accountNumber) {
+    public static Account from(Long userId, AddAccountForm form, String accountNumber) {
         return Account.builder()
                 .accountNumber(accountNumber)
                 .password(form.getPassword())
                 .balance(0L)
                 .type(form.getType())
-                .customer(userId)
-                .bank(BankType.valueOfName(form.getBankName()))
+                .customerId(userId)
+                .bank(form.getBankType())
                 .build();
     }
 }
