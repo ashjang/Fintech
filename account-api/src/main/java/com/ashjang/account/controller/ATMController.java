@@ -20,7 +20,7 @@ public class ATMController {
     private final ATMService atmService;
 
     @ApiOperation(value = "금액 인출", response = ATMDto.class)
-    @PutMapping
+    @PutMapping("/withdraw")
     public ResponseEntity<ATMDto> withdrawal(@RequestHeader(value = "X-AUTH-TOKEN") String token,
                                              @Valid @RequestBody AccountForm form, BindingResult bindingResult,
                                              @RequestParam Long money) {
@@ -31,5 +31,19 @@ public class ATMController {
 
         ATMDto withdrawal = atmService.withdrawal(token, money, form);
         return ResponseEntity.ok(withdrawal);
+    }
+
+    @ApiOperation(value = "금액 입금", response = ATMDto.class)
+    @PutMapping("deposit")
+    public ResponseEntity<ATMDto> deposit(@RequestHeader(value = "X-AUTH-TOKEN") String token,
+                                          @Valid @RequestBody AccountForm form, BindingResult bindingResult,
+                                          @RequestParam Long money) {
+        // 폼 형식에 맞지 않음
+        if (bindingResult.hasErrors()) {
+            throw new CustomException(ErrorCode.VALIDATION_FAIL);
+        }
+
+        ATMDto deposit = atmService.deposit(token, money, form);
+        return ResponseEntity.ok(deposit);
     }
 }

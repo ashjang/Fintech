@@ -25,7 +25,7 @@ public class ATMService {
     @Transactional
     public ATMDto withdrawal(String token, Long money, AccountForm form) {
         if (!jwtAuthenticationProvider.isValidToken(token)) {
-            throw new CustomException(ErrorCode.NOT_FOUND_USER);
+            throw new CustomException(ErrorCode.NOT_VALID_TOKEN);
         }
 
         UserVo userVo = jwtAuthenticationProvider.getUserVo(token);
@@ -52,6 +52,33 @@ public class ATMService {
                 money,
                 account.getBalance(),
                 "금액 인출",
+                LocalDateTime.now()
+        );
+    }
+
+    // 금액 입금
+    @Transactional
+    public ATMDto deposit(String token, Long money, AccountForm form) {
+        if (!jwtAuthenticationProvider.isValidToken(token)) {
+            throw new CustomException(ErrorCode.NOT_VALID_TOKEN);
+        }
+
+        UserVo userVo = jwtAuthenticationProvider.getUserVo(token);
+        Account account = accountRepository.findByAccountNumberAndCustomer_Id(form.getAccountNumber(), userVo.getId())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ACCOUNT));
+
+        // 입력 계좌 비밀번호 일치여부
+        if (!account.getPassword().equals(form.getAccountPassword())) {
+            throw new CustomException(ErrorCode.CHECK_PASSWORD);
+        }
+
+        account.setBalance(account.getBalance() + money);
+
+        return new ATMDto(
+                account.getAccountNumber(),
+                money,
+                account.getBalance(),
+                "금액 입금",
                 LocalDateTime.now()
         );
     }
