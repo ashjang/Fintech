@@ -3,7 +3,7 @@ package com.ashjang.account.service;
 import com.ashjang.account.domain.dto.AccountType;
 import com.ashjang.account.domain.dto.AddAccountForm;
 import com.ashjang.account.domain.dto.BankType;
-import com.ashjang.account.domain.dto.DeleteAccountForm;
+import com.ashjang.account.domain.dto.AccountForm;
 import com.ashjang.account.domain.model.Account;
 import com.ashjang.account.domain.repository.AccountRepository;
 import com.ashjang.account.exception.CustomException;
@@ -72,13 +72,16 @@ public class AccountManageService {
     }
 
     // 계좌 삭제
-    public Account deleteAccount(String token, DeleteAccountForm form) {
+    public Account deleteAccount(String token, AccountForm form) {
         if (!jwtAuthenticationProvider.isValidToken(token)) {
             throw new CustomException(ErrorCode.NOT_VALID_TOKEN);
         }
 
         UserVo userVo = jwtAuthenticationProvider.getUserVo(token);
-        Account account = accountRepository.findByAccountNumberAndCustomerId(form.getAccountNumber(), userVo.getId())
+        Customer customer = customerRepository.findByIdAndNickname(userVo.getId(), userVo.getNickname())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        Account account = accountRepository.findByAccountNumberAndCustomerId(form.getAccountNumber(), customer)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ACCOUNT));
 
         // 잔액 확인
@@ -91,6 +94,26 @@ public class AccountManageService {
             accountRepository.delete(account);
             accountRepository.flush();
         } else {
+            throw new CustomException(ErrorCode.CHECK_PASSWORD);
+        }
+
+        return account;
+    }
+
+    // 계좌검색
+    public Account selectAccount(String token, AccountForm form) {
+        if (!jwtAuthenticationProvider.isValidToken(token)) {
+            throw new CustomException(ErrorCode.NOT_VALID_TOKEN);
+        }
+
+        UserVo userVo = jwtAuthenticationProvider.getUserVo(token);
+        Customer customer = customerRepository.findByIdAndNickname(userVo.getId(), userVo.getNickname())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        Account account = accountRepository.findByAccountNumberAndCustomerId(form.getAccountNumber(), customer)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ACCOUNT));
+
+        if (!account.getPassword().equals(form.getAccountPassword())) {
             throw new CustomException(ErrorCode.CHECK_PASSWORD);
         }
 
