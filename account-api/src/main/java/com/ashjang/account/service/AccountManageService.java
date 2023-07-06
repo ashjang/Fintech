@@ -38,11 +38,11 @@ public class AccountManageService {
 
         // 계좌 생성 가능한지 여부 확인(예금:1, 적금:2)
         if (form.getType() == AccountType.SAVINGS
-                && accountRepository.findAllByCustomerIdAndTypeAndBank(customer, form.getType(), form.getBankType()).size() == 1) {
+                && accountRepository.findAllByCustomer_IdAndTypeAndBank(userVo.getId(), form.getType(), form.getBankType()).size() == 1) {
             throw new CustomException(ErrorCode.ALREADY_EXISTS_ACCOUNT);
         }
         if (form.getType() == AccountType.INSTALLMENT_SAVINGS
-                && accountRepository.findAllByCustomerIdAndTypeAndBank(customer, form.getType(), form.getBankType()).size() == 2) {
+                && accountRepository.findAllByCustomer_IdAndTypeAndBank(userVo.getId(), form.getType(), form.getBankType()).size() == 2) {
             throw new CustomException(ErrorCode.ALREADY_EXISTS_ACCOUNT);
         }
 
@@ -78,10 +78,8 @@ public class AccountManageService {
         }
 
         UserVo userVo = jwtAuthenticationProvider.getUserVo(token);
-        Customer customer = customerRepository.findByIdAndNickname(userVo.getId(), userVo.getNickname())
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        Account account = accountRepository.findByAccountNumberAndCustomerId(form.getAccountNumber(), customer)
+        Account account = accountRepository.findByAccountNumberAndCustomer_Id(form.getAccountNumber(), userVo.getId())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ACCOUNT));
 
         // 잔액 확인
@@ -107,10 +105,8 @@ public class AccountManageService {
         }
 
         UserVo userVo = jwtAuthenticationProvider.getUserVo(token);
-        Customer customer = customerRepository.findByIdAndNickname(userVo.getId(), userVo.getNickname())
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        Account account = accountRepository.findByAccountNumberAndCustomerId(form.getAccountNumber(), customer)
+        Account account = accountRepository.findByAccountNumberAndCustomer_Id(form.getAccountNumber(), userVo.getId())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ACCOUNT));
 
         if (!account.getPassword().equals(form.getAccountPassword())) {

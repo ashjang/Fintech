@@ -29,8 +29,8 @@ public class Account extends BaseEntity{
     private AccountType type;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customerId;
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    private Customer customer;
 
     private BankType bank;
 
@@ -40,7 +40,7 @@ public class Account extends BaseEntity{
                 .password(form.getPassword())
                 .balance(0L)
                 .type(form.getType())
-                .customerId(userId)
+                .customer(userId)
                 .bank(form.getBankType())
                 .build();
     }
