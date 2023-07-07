@@ -2,7 +2,6 @@ package com.ashjang.account.domain.dto;
 
 import com.ashjang.account.domain.model.Account;
 import com.ashjang.user.domain.dto.CustomerDto;
-import com.ashjang.user.domain.model.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +26,7 @@ public class AccountDto {
                 account.getBalance(),
                 account.getType(),
                 account.getBank(),
-                CustomerDto.from(account.getCustomerId())
+                CustomerDto.from(account.getCustomer())
         );
     }
 }
