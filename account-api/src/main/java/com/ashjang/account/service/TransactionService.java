@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TransactionService {
@@ -56,5 +58,27 @@ public class TransactionService {
     public void updateBalance(Account sender, Account receiver, Long money) {
         sender.setBalance(sender.getBalance() - money);
         receiver.setBalance(receiver.getBalance() + money);
+    }
+
+    // 송금 조회
+    public List<Transaction> historyTransaction(String token, String accountNumber) {
+        if(!jwtAuthenticationProvider.isValidToken(token)) {
+            throw new CustomException(ErrorCode.NOT_VALID_TOKEN);
+        }
+
+        UserVo userVo = jwtAuthenticationProvider.getUserVo(token);
+
+        Account account = accountRepository.findByAccountNumberAndCustomer_Id(accountNumber, userVo.getId())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ACCOUNT));
+
+        List<Transaction> transactionList = transactionRepository.findAllBySender_Id(account.getId());
+        transactionList.forEach(x -> x.setMoney(-x.getMoney()));
+        transactionList.addAll(transactionRepository.findAllByReceiver_Id(account.getId()));
+
+        if (transactionList.isEmpty()) {
+            throw new CustomException(ErrorCode.NOT_FOUND_TRANSACTION);
+        }
+
+        return transactionList;
     }
 }

@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/transaction")
@@ -31,5 +33,14 @@ public class TransactionController {
 
         Transaction transaction = transactionService.transferMoney(token, form);
         return ResponseEntity.ok(TransactionDto.from(transaction));
+    }
+
+    @ApiOperation(value = "계좌 내역", response = List.class, notes = "입출금 조회")
+    @GetMapping("/history")
+    public ResponseEntity<List<TransactionDto>> transactionHistory(@RequestHeader(value = "X-AUTH-TOKEN") String token,
+                                                @RequestParam String accountNumber) {
+        List<Transaction> transactions = transactionService.historyTransaction(token, accountNumber);
+        List<TransactionDto> result = transactions.stream().map(TransactionDto::from).collect(Collectors.toList());
+        return ResponseEntity.ok(result);
     }
 }

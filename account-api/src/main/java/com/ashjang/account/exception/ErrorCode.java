@@ -20,7 +20,9 @@ public enum ErrorCode {
     CHECK_PASSWORD("계좌 비밀번호가 일치하지 않습니다."),
 
     CHECK_MONEY("잔액을 확인해주세요."),
-    CHECK_ACCOUNT_TYPE("계좌유형을 다시 확인해주세요.")
+    CHECK_ACCOUNT_TYPE("계좌유형을 다시 확인해주세요."),
+
+    NOT_FOUND_TRANSACTION("계좌 내역이 없습니다.")
     ;
 
     private final String detail;
