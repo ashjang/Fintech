@@ -45,7 +45,7 @@ public class ATMService {
             throw new CustomException(ErrorCode.CHECK_MONEY);
         }
 
-        account.setBalance(account.getBalance() - money);
+        account.decreaseBalance(money);
 
         return new ATMDto(
                 account.getAccountNumber(),
@@ -72,7 +72,7 @@ public class ATMService {
             throw new CustomException(ErrorCode.CHECK_PASSWORD);
         }
 
-        account.setBalance(account.getBalance() + money);
+        account.increaseBalance(money);
 
         return new ATMDto(
                 account.getAccountNumber(),
