@@ -50,19 +50,14 @@ public class TransactionService {
             throw new CustomException(ErrorCode.CHECK_PASSWORD);
         }
 
-        updateBalance(sender, receiver, form.getMoney());
+        sender.decreaseBalance(form.getMoney());
+        receiver.increaseBalance(form.getMoney());
         return transactionRepository.save(Transaction.from(form, sender, receiver));
-    }
-
-    @Transactional
-    public void updateBalance(Account sender, Account receiver, Long money) {
-        sender.setBalance(sender.getBalance() - money);
-        receiver.setBalance(receiver.getBalance() + money);
     }
 
     // 송금 조회
     public List<Transaction> historyTransaction(String token, String accountNumber) {
-        if(!jwtAuthenticationProvider.isValidToken(token)) {
+        if (!jwtAuthenticationProvider.isValidToken(token)) {
             throw new CustomException(ErrorCode.NOT_VALID_TOKEN);
         }
 

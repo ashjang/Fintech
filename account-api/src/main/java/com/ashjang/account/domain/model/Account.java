@@ -44,4 +44,12 @@ public class Account extends BaseEntity{
                 .bank(form.getBankType())
                 .build();
     }
+
+    public void decreaseBalance(Long money) {
+        this.balance = this.balance - money;
+    }
+
+    public void increaseBalance(Long money) {
+        this.balance = this.balance + money;
+    }
 }
