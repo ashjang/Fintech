@@ -3,7 +3,6 @@ package com.ashjang.account.domain.repository;
 import com.ashjang.account.domain.dto.AccountType;
 import com.ashjang.account.domain.dto.BankType;
 import com.ashjang.account.domain.model.Account;
-import com.ashjang.user.domain.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

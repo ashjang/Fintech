@@ -3,8 +3,6 @@ package com.ashjang.user.controller;
 import com.ashjang.user.domain.dto.ChangeDetailForm;
 import com.ashjang.user.domain.dto.CustomerDto;
 import com.ashjang.user.domain.model.Customer;
-import com.ashjang.user.exception.CustomException;
-import com.ashjang.user.exception.ErrorCode;
 import com.ashjang.user.service.customer.CustomerService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

@@ -2,7 +2,6 @@ package com.ashjang.user.service.customer;
 
 import com.ashjang.domain.config.JwtAuthenticationProvider;
 import com.ashjang.user.domain.SignInForm;
-import com.ashjang.user.domain.dto.CustomerDto;
 import com.ashjang.user.domain.model.Customer;
 import com.ashjang.user.domain.repository.CustomerRepository;
 import com.ashjang.user.exception.CustomException;
